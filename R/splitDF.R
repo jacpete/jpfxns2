@@ -28,7 +28,7 @@
 #'   different size as it is made up of the leftover rows or groups.
 #'
 #' @section Creation notes: First created on 2019-Feb-2 in FIA_Test.R for my
-#'   BigDataFNR class project folder of my purdueResearch repo. It was a way to
+#'   BigDataFNR class project in my purdueResearch repo. It was a way to
 #'   handle a data frame with millions of lines and speed up operations to pivot
 #'   a species column and sum by a plot_year ID using the USFS FIA database.
 #'
