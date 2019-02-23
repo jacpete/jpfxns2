@@ -1,11 +1,15 @@
 Package: jpfxns2
 Type: Package
-Title: 
+Title: Second Interation of JP Functions - Purdue Edition
 Version: 0.1.0
-Author: Jacob Peterson
-Maintainer: The package maintainer <jacobmpeterson@gmail.com>
-Description: The purpose of this package is to hold useful functions I create during my time at Purdue and hold them until I reorganize them in a package for release.
-License: GPL 2
+Author@R: person("Jacob", "Peterson", email = "jacobmpeterson12@gmail.com",
+    role = c("aut", "cre"))
+Description: The purpose of this package is to hold useful functions I create 
+    during my time at Purdue and hold them until I reorganize them in a package 
+    for release. These will be functions that are generalized and I find to be
+    useful on multiple projects
+License: GPL-2
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/jacpete/jpfxns2
+Issues: https://github.com/jacpete/jpfxns2/issues
