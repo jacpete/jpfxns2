@@ -3,7 +3,7 @@ Package Repo for helpful tools developed at Purdue
 
 
 Install with:
-```r
+```R
 library(devtools)
 devtools::install_github("jacpete/jpfxns2")
 ```
