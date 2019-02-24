@@ -34,7 +34,7 @@
 #'
 #' @examples
 #'
-#'
+#' @export
 
 splitDF <- function(data, sep=1000, byCol=NULL) {
   if (is.null(byCol)) { # if you want to seperate by rows in dataframe

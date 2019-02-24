@@ -47,5 +47,4 @@ By default it will split a data.frame up into a list of data frame
 
 \examples{
 
-
 }
