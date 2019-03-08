@@ -13,13 +13,14 @@
 #'
 #' @examples
 #' @rdname deg2rad
-#'
+#' @export
 
 deg2rad <- function(deg) {
   (deg * pi) / (180)
   }
 
 #' @rdname deg2rad
+#' @export
 rad2deg <- function(rad) {
   (rad * 180) / (pi)
 }
