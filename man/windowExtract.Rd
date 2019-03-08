@@ -20,7 +20,7 @@ Returns a data.frame with the raster values extracted at the current
   radius.
 }
 \description{
-Does the work to extract rasters
+Extracts rasters using a defined radius from a cell location
 }
 \section{Creation notes}{
  First created on 2019-Mar-6 in the Lab4inR.R and

@@ -68,7 +68,7 @@ radiusExtractData <- function(cellID, rasData, radius=1) { #for a quicker calcul
 
 #' @title Extract raster values in a window
 #'
-#' @description Does the work to extract rasters
+#' @description Extracts rasters using a defined radius from a cell location
 #'
 #' @param xf,yf Input cellIDs that you are extracting from.
 #' @param radius numeric. radius used to define extractWindow
