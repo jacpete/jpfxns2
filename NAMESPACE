@@ -2,4 +2,6 @@
 
 export(deg2rad)
 export(rad2deg)
+export(sf_XYtoCols)
+export(sf_sample)
 export(splitDF)
