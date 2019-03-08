@@ -95,7 +95,6 @@ windowExtract <- function(xf, yf, radius = 1, xydata){
     resu <- as.data.frame(selected)
   }
 
-
   if(n > 1) {
     f <- which(x == xf & y == yf) ##focal cell
     sele.s <- sele[sele != f]   ##remove focal cell
