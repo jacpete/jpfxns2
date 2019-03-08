@@ -2,6 +2,8 @@
 
 export(deg2rad)
 export(rad2deg)
+export(radiusExtractData)
+export(radiusExtractXY)
 export(sf_XYtoCols)
 export(sf_sample)
 export(splitDF)
