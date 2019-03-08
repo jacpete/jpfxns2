@@ -82,10 +82,6 @@ radiusExtractData <- function(cellID, rasData, radius=1) { #for a quicker calcul
 #' @section Creation notes: First created on 2019-Mar-6 in the Lab4inR.R and
 #'   select.window.R scripts in my IBM class folder of the purdueResearch git.
 #'   They were developed using base code from \code{CommEcol::select.window()}.
-
-
-
-# derived from CommEcol::select.window
 windowExtract <- function(xf, yf, radius = 1, xydata){
 
   x <- xydata$x
