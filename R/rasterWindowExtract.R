@@ -58,7 +58,7 @@ radiusExtractData <- function(cellID, rasData, radius=1) { #for a quicker calcul
   yCell <- rasData$y[rasData$cellID == cellID]
 
   # check for invalid cellIDs
-  if (length(xCell) == 0 | length(yCell) == 0) stop("Invalid cellID")
+  if (length(xCell) == 0 | length(yCell) == 0 | is.null(cellID)) stop("Invalid cellID")
 
   return(windowExtract(xf = xCell, yf = yCell, radius = radius, xydata = rasData))
 }
