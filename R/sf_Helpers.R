@@ -47,3 +47,36 @@ sf_XYtoCols <- function(x, names = c("x","y")) {
   ret <- setNames(ret,names)
   dplyr::bind_cols(x,ret)
 }
+
+
+
+#' @title Clip points using \code{sp::over}
+#'
+#' @description Clips points by converting sf features to sp, using
+#' \code{sp::over}, then converting back to sf for the output. Can be faster
+#' than some sf methods.
+#'
+#' @param inputPoints sf Point object
+#' @param clipPoly sf Polygon object
+#'
+#' @return Returns an sf object clipped to the \code{clipPoly}.
+#'
+#' @section Creation notes: First created on 2019-Mar-21 in 1-2_FIA_CleanRawData.R
+#'
+#' @examples
+#'
+#' @export
+sf_ClipPointsSPover <- function(inputPoints, clipPoly) {
+
+  #coerce to sp
+  inputPoints_sp <- as(inputPoints, "Spatial")
+  clipPoly_sp <- as(clipPoly, "Spatial")
+
+  #clip with over operator (only works well for points)
+  clippedPoints_sp <- sp::over(inputPoints_sp, clipPoly_sp)
+
+  #coerce result to sf
+  clippedPoints_sf <- sf::st_as_sf(clippedPoints_sp)
+
+  return(clippedPoints_sf)
+}
