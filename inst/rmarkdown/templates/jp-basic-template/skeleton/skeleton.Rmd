@@ -1,18 +1,63 @@
 ---
 title: "Template Title"
 author: "Jacob Peterson"
-date: "The Date"
+date: "`r format(Sys.Date(), '%B %d, %Y')`" 
 output: pdf_document
+# output: html_document
+# output: word_document
+
+
+urlcolor: blue
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+[//]: # Remember to run the date code above and insert the output to preserve date of creation (this is how you enter a comment to markdown)
+
+```{r Load-Package-Libraries, include=FALSE, warning=FALSE} 
+library(knitr)
+library(tidyverse)
+library(captioner)
+library(jpfxns2)
 ```
 
-## Adding an RMarkdown Template
+```{r Setup-Chunk-Options, include=FALSE}
+opts_chunk$set(echo = TRUE)
+```
 
-This file is what a user will see when they select your template. Make sure that you update the fields in the yaml header. In particular you will want to update the `output` field to whatever format your template requires.
+```{r Setup_Working_Directory, include=FALSE} 
+#### set working directories (uncommnent and comment depending on computer)
+### Base directories on all computers
+## BlueRebel and jacpeteLaptop
+baseDir<-"/home/jacpete/RemoteMountedDrives/PurdueDataDepot"
 
-This is a good place to demonstrate special features that your template provides. Ideally it should knit out-of-the-box, or at least contain clear instructions as to what needs changing.
+## PurdueDataDepot
+# baseDir<-"/depot/pzollner/data/JacobP"
 
-Finally, be sure to remove this message!
+
+###
+## BaseDataDirOnPurdueDataDepot
+baseData<-"class/InformaticsABE"
+
+### Set Base Working Directory for Data 
+basePath <- file.path(baseDir,baseData)
+rm(baseDir, baseData)
+```
+
+```{r Setup-Caption-Prefixes, include=FALSE}
+figNum <- captioner(prefix="Fig.")
+TabNum <- captioner(prefix="Table")
+```
+
+# First Section Heading and Main Document Starts Here  
+
+## **Plot Figures With Centered Captions**
+Figures are captioned by plotting in one chunck and then providing a caption in the following chunk with the option `results="asis"`.
+
+```{r Plot-Caret-Price, echo=FALSE, results='hide', fig.align='center'}
+qplot(carat, price, data = diamonds)
+```
+
+```{r, echo=FALSE, results="asis"}
+jpfxns2::adaptiveCenterCaption(chunckName="Plot-Caret-Price", caption = "This is caption 1", capFxn = "figNum")
+```
+
+
