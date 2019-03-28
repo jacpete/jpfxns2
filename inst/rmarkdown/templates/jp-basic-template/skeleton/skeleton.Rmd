@@ -54,11 +54,19 @@ TabNum <- captioner(prefix="Table")
 Figures are captioned by plotting in one chunck and then providing a caption in the following chunk with the option `results="asis"`.
 
 ```{r Plot-Caret-Price, echo=FALSE, results='hide', fig.align='center'}
-qplot(carat, price, data = diamonds)
+qplot(carat, price, data = ggplot2::diamonds)
 ```
 
 ```{r, echo=FALSE, results="asis"}
 jpfxns2::adaptiveCenterCaption(chunckName="Plot-Caret-Price", caption = "This is caption 1", capFxn = "figNum")
 ```
 
+## **Plot Figures With Centered Captions**
 
+```{r Draw-Table, echo=FALSE, results='asis'}
+kable(ggplot2::diamonds[1:10,])
+```
+
+```{r, echo=FALSE, results="asis"}
+jpfxns2::adaptiveCenterCaption(chunckName="Draw-Table", caption = "First 10 records in the diamonds table from ggplot2.", capFxn = "TabNum")
+```
