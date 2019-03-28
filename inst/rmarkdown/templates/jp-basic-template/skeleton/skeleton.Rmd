@@ -1,8 +1,8 @@
 ---
 title: "Template Title"
-author: "Your Name"
+author: "Jacob Peterson"
 date: "The Date"
-output: output_format
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
