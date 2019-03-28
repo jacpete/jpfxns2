@@ -1,0 +1,4 @@
+name: JP Basic Template
+description: >
+   Basic Rmarkdown template to use to create basic documents
+create_dir: true
