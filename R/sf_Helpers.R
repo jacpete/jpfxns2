@@ -73,7 +73,7 @@ sf_ClipPointsSPover <- function(inputPoints, clipPoly) {
   clipPoly_sp <- as(clipPoly, "Spatial")
 
   #clip with over operator (only works well for points)
-  clippedPoints_sp <- sp::over(inputPoints_sp, clipPoly_sp)
+  clippedPoints_sp <- inputPoints_sp[clipPoly_sp,]
 
   #coerce result to sf
   clippedPoints_sf <- sf::st_as_sf(clippedPoints_sp)
