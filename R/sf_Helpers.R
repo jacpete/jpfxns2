@@ -80,3 +80,90 @@ sf_ClipPointsSPover <- function(inputPoints, clipPoly) {
 
   return(clippedPoints_sf)
 }
+
+
+
+
+#' @title Make extent class object for \code{sf} object
+#'
+#' @description Makes an extent class object using \code{sf::st_bbox} and
+#'   \code{raster::extent()}.
+#'
+#' @param sfLayer sf object
+#'
+#' @return Returns an extent object from \code{raster::extent()}.
+#'
+#' @section Creation notes: First created on 2019-Apr-02 in
+#'   1-2_FIA_CleanRawData.R
+#'
+#' @section Future directions: I hope to create a new extent class method with
+#'   this in the future once I learn more about class specific methods.
+#'
+#' @examples
+#'
+#' @export
+sf_extent <- function(sfLayer) {
+  bbox <- sf::st_bbox(sfLayer)
+  extentBbox <- bbox[c(1,3,2,4)]
+  ext <- raster::extent(extentBbox)
+  return(ext)
+}
+
+
+#' @title Make polygon grid over \code{sf} feature using lat-lon coordinates
+#'
+#' @description Make polygon grid over \code{sf} feature using lat-lon
+#'   coordinates. This can be used to split data into regions determined by the
+#'   exported grid. Can be used to create a standard grid using the bounding box
+#'   of the original feature or a 'pretty' grid that locks grid edges to more
+#'   even numbers.
+#'
+#' @param sfLayer sf object
+#' @param gridSize grid resolution, uses coordinate system measurment default
+#' @param prettyGrid logical, Use pretty grid measuremetns? Defalut: TRUE
+#' @param CRS a CRS string or EPSG key
+#' @param output character, Do you want a polygon or raster output of the
+#'   estimated grid?
+#'
+#' @return Returns either a raster or sf Polygon grid to overlay over the
+#'   sfLayer data.
+#'
+#' @section Creation notes: First created on 2019-Apr-02 in
+#'   1-2_FIA_CleanRawData.R
+#'
+#' @examples
+#'
+#' @export
+sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269, output = c("polygon", "raster")) {
+
+  # match output method
+  output <- match.arg(output)
+
+  # make sure data is in a lat long transformation
+  sfLayer <- sf::st_transform(sfLayer, crs = CRS)
+
+  # get extent for sfLayer
+  ext <- jpfxns::sf_extent(sfLayer)
+
+  # create raster to base grid off of
+  if (isTRUE(prettyGrid)) {
+    lonMin <- (floor(ext@xmin) + floor(ext@xmin) %% gridSize)
+    lonMax <- (ceiling(ext@xmax) + ceiling(ext@xmax) %% gridSize)
+    latMax <- (ceiling(ext@ymax) + ceiling(ext@ymax) %% gridSize)
+    latMin <- (floor(ext@ymin) + floor(ext@ymin) %% gridSize)
+    ras <- raster::raster(xmn = lonMin, xmx = lonMax, ymn = latMin, ymx = latMax,
+                          crs = CRS, resolution = gridSize, vals=1)
+  } else {
+    ras <- raster::raster(ext = ext, crs = CRS, resolution = gridSize, vals=1)
+  }
+
+  # convert to polygon object if needed
+  if (output == "polygon") {
+    poly <- raster::rasterToPolygons(ras)
+    poly <- sf::st_as_sf(poly) %>% dplyr::mutate(ID = as.integer(rownames(.))) %>% dplyr::select(ID)
+    return(poly)
+  } else {
+    return(ras)
+  }
+}
+
