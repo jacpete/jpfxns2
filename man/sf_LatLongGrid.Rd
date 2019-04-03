@@ -14,10 +14,10 @@ sf_LatLongGrid(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269,
 
 \item{prettyGrid}{logical, Use pretty grid measuremetns? Defalut: TRUE}
 
-\item{CRS}{a CRS string or EPSG key}
-
 \item{output}{character, Do you want a polygon or raster output of the
 estimated grid?}
+
+\item{epsg}{an EPSG key}
 }
 \value{
 Returns either a raster or sf Polygon grid to overlay over the

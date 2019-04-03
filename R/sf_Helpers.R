@@ -121,7 +121,7 @@ sf_extent <- function(sfLayer) {
 #' @param sfLayer sf object
 #' @param gridSize grid resolution, uses coordinate system measurment default
 #' @param prettyGrid logical, Use pretty grid measuremetns? Defalut: TRUE
-#' @param CRS a CRS string or EPSG key
+#' @param epsg an EPSG key
 #' @param output character, Do you want a polygon or raster output of the
 #'   estimated grid?
 #'
@@ -140,7 +140,7 @@ sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269,
   output <- match.arg(output)
 
   # make sure data is in a lat long transformation
-  sfLayer <- sf::st_transform(sfLayer, crs = CRS)
+  sfLayer <- sf::st_transform(sfLayer, crs = epsg)
 
   # get extent for sfLayer
   ext <- jpfxns2::sf_extent(sfLayer)
@@ -152,9 +152,9 @@ sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269,
     latMax <- (ceiling(ext@ymax) + ceiling(ext@ymax) %% gridSize)
     latMin <- (floor(ext@ymin) + floor(ext@ymin) %% gridSize)
     ras <- raster::raster(xmn = lonMin, xmx = lonMax, ymn = latMin, ymx = latMax,
-                          crs = CRS, resolution = gridSize, vals=1)
+                          crs = sp::CRS(paste0("+init=epsg:", epsg)), resolution = gridSize, vals=1)
   } else {
-    ras <- raster::raster(ext = ext, crs = CRS, resolution = gridSize, vals=1)
+    ras <- raster::raster(ext = ext, crs = sp::CRS(paste0("+init=epsg:", epsg)), resolution = gridSize, vals=1)
   }
 
   # convert to polygon object if needed
