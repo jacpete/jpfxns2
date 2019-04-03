@@ -143,7 +143,7 @@ sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269,
   sfLayer <- sf::st_transform(sfLayer, crs = CRS)
 
   # get extent for sfLayer
-  ext <- jpfxns::sf_extent(sfLayer)
+  ext <- jpfxns2::sf_extent(sfLayer)
 
   # create raster to base grid off of
   if (isTRUE(prettyGrid)) {
