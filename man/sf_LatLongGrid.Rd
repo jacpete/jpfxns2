@@ -4,7 +4,7 @@
 \alias{sf_LatLongGrid}
 \title{Make polygon grid over \code{sf} feature using lat-lon coordinates}
 \usage{
-sf_LatLongGrid(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269,
+sf_LatLongGrid(sfLayer, gridSize = 1, prettyGrid = TRUE, epsg = 4269,
   output = c("polygon", "raster"))
 }
 \arguments{
@@ -14,10 +14,10 @@ sf_LatLongGrid(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269,
 
 \item{prettyGrid}{logical, Use pretty grid measuremetns? Defalut: TRUE}
 
+\item{epsg}{an EPSG key}
+
 \item{output}{character, Do you want a polygon or raster output of the
 estimated grid?}
-
-\item{epsg}{an EPSG key}
 }
 \value{
 Returns either a raster or sf Polygon grid to overlay over the

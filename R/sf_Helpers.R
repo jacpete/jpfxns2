@@ -134,7 +134,7 @@ sf_extent <- function(sfLayer) {
 #' @examples
 #'
 #' @export
-sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, CRS = 4269, output = c("polygon", "raster")) {
+sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, epsg = 4269, output = c("polygon", "raster")) {
 
   # match output method
   output <- match.arg(output)
