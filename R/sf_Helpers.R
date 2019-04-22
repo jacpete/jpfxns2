@@ -119,7 +119,8 @@ sf_extent <- function(sfLayer) {
 #'   even numbers.
 #'
 #' @param sfLayer sf object
-#' @param gridSize grid resolution, uses coordinate system measurment default
+#' @param gridSize grid resolution, uses coordinate system measurement. Default:
+#'   1
 #' @param prettyGrid logical, Use pretty grid measuremetns? Defalut: TRUE
 #' @param epsg an EPSG key
 #' @param output character, Do you want a polygon or raster output of the
@@ -167,3 +168,54 @@ sf_LatLongGrid <- function(sfLayer, gridSize = 1, prettyGrid = TRUE, epsg = 4269
   }
 }
 
+
+
+#' @title Make Study Area Polygons
+#'
+#' @description Make study area polygons from the extent (bbox) of an sf layer.
+#'   Includes scaling options to increase or decrease size of the polygon by a
+#'   ratio or by a distance calculated in map units. Because of this, the
+#'   distance parameter only works for projected layers.
+#'
+#' @param sfLayer sf object
+#' @param ratio Numerical vector of length 1 or 2 (as it pertains to the x,y
+#'   axes). Default: 1 to create a basic study area polygon for the sfLayer.
+#'   Ignored if a \code{dist} is given.
+#' @param dist Numerical vector of length 1 or 2 (as it pertains to the x,y
+#'   axes). Default: \code{NULL}.
+#'
+#' @return Returns a polygon sf layer that is a rectangle.
+#'
+#' @section Creation notes: First created on 2019-Apr-22 while working on my IBM
+#'   class project.
+#'
+#' @section Future directions: I may need to add checks to make sure negative
+#'   distance values won't flip the min and max values in the extent creation
+#'   section.
+#'
+#' @examples
+#'
+#' @export
+sf_studyArea <- function(sfLayer, ratio = 1, dist = NULL) {
+
+  if (length(ratio) == 1) {ratio <- rep(ratio, 2)}
+
+  ext <- jpfxns2::sf_extent(sfLayer)
+
+  if (!is.null(dist)) {
+    if (length(dist) == 1) {dist <- rep(dist, 2)}
+
+    ratio[1] <- (dist[1] / (ext@xmax - ext@xmin)) + 1
+    ratio[2] <- (dist[2] / (ext@ymax - ext@ymin)) + 1
+  }
+
+  ext@xmin <- ext@xmin - (((ext@xmax - ext@xmin) * ratio[1]) - (ext@xmax - ext@xmin))
+  ext@xmax <- ext@xmax + (((ext@xmax - ext@xmin) * ratio[1]) - (ext@xmax - ext@xmin))
+  ext@ymin <- ext@ymin - (((ext@ymax - ext@ymin) * ratio[2]) - (ext@ymax - ext@ymin))
+  ext@ymax <- ext@ymax + (((ext@ymax - ext@ymin) * ratio[2]) - (ext@ymax - ext@ymin))
+
+  SA <- as(ext, "SpatialPolygons") %>%
+    sf::st_as_sf()
+
+  return(SA)
+}

@@ -10,7 +10,8 @@ sf_LatLongGrid(sfLayer, gridSize = 1, prettyGrid = TRUE, epsg = 4269,
 \arguments{
 \item{sfLayer}{sf object}
 
-\item{gridSize}{grid resolution, uses coordinate system measurment default}
+\item{gridSize}{grid resolution, uses coordinate system measurement. Default:
+1}
 
 \item{prettyGrid}{logical, Use pretty grid measuremetns? Defalut: TRUE}
 
