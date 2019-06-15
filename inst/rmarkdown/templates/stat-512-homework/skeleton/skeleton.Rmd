@@ -1,0 +1,77 @@
+---
+title: "Homework #"
+author: |
+  | Jacob Peterson
+  | Section 003
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+section: 003
+header-includes:
+   - \usepackage{color,soul}
+output: pdf_document
+urlcolor: blue
+---
+
+[//]: # Remember to run the date code above and insert the output to preserve date of creation (this is how you enter a comment to markdown)
+
+```{r Load-Package-Libraries, include=FALSE, warning=FALSE} 
+library(knitr)
+library(tidyverse)
+library(captioner)
+# devtools::install_github("jacpete/jpfxns2")
+library(jpfxns2)
+```
+
+```{r Setup-Chunk-Options, include=FALSE}
+opts_chunk$set(echo = TRUE)
+options(knitr.duplicate.label = 'allow')
+```
+
+```{r Setup_Working_Directory, include=FALSE} 
+# setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+knitr::opts_knit$set(root.dir = getwd() )
+```
+
+```{r Setup-Caption-Prefixes, include=FALSE}
+figNum <- captioner(prefix="Fig.")
+TabNum <- captioner(prefix="Table")
+```
+
+## Question 1
+
+Text is \hl{highlighted} like this.
+
+Can even highlight r data like \hl{`r signif(ggplot2::diamonds$depth[4],3)`}
+
+## **Plot Figures With Centered Captions**
+Figures are captioned by plotting in one chunck and then providing a caption in the following chunk with the option `results="asis"`.
+
+```{r Plot-Caret-Price, echo=FALSE, results='hide', fig.align='center'}
+qplot(carat, price, data = ggplot2::diamonds)
+```
+
+```{r, echo=FALSE, results="asis"}
+jpfxns2::adaptiveCenterCaption(chunckName="Plot-Caret-Price", caption = "This is caption 1", capFxn = "figNum")
+```
+
+## **Plot Figures With Centered Captions**
+
+```{r Draw-Table, echo=FALSE, results='asis'}
+kable(ggplot2::diamonds[1:10,])
+```
+
+```{r, echo=FALSE, results="asis"}
+jpfxns2::adaptiveCenterCaption(chunckName="Draw-Table", caption = "First 10 records in the diamonds table from ggplot2.", capFxn = "TabNum")
+```
+
+
+# Code Appendix
+
+```{r Export-R-File, include=FALSE}
+knitr::purl("Homework1_JMP.Rmd", documentation = 1)
+```
+
+```{r Add-RMarkdown-Code-Appendix, code = readLines("Homework1_JMP.R"), echo=TRUE, eval=FALSE}
+```
+
+
+
