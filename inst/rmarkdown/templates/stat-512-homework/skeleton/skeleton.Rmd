@@ -11,7 +11,6 @@ output: pdf_document
 urlcolor: blue
 ---
 
-[//]: # Remember to run the date code above and insert the output to preserve date of creation (this is how you enter a comment to markdown)
 
 ```{r Load-Package-Libraries, include=FALSE, warning=FALSE} 
 library(knitr)
@@ -37,10 +36,43 @@ TabNum <- captioner(prefix="Table")
 ```
 
 ## Question 1
+**Copy the question here?**
 
-Text is \hl{highlighted} like this.
+```{r Q1-Data-Load, include=FALSE}
+# All of initial R code or loading the data needed to answer the question goes here
+# Adopt a naming protocol to keep track such as:
+# Q1_n <- 10
+# Q1_b1estimate <- 711
+# Q1_b1stderr <- 143
+# GPA <- readr::read_csv("GPA.csv")
+```
 
-Can even highlight r data like \hl{`r signif(ggplot2::diamonds$depth[4],3)`}
+### a) Part A of the question here
+
+```{r Q2-PartA, include=FALSE}
+# Code specific to a part goes here
+# I suggest adding a part identifier to your variable names such as:
+# Q1A_SSxy <- sum((GPA$ACT - Q2_Xbar)*(GPA$GPA - Q2_Ybar))
+Q1_sb0 <- 12.85683
+```
+
+Answers can then by typed below each part. 
+
+*   Text is \hl{highlighted} like this. 
+*   Can even highlight r data like \hl{`r signif(ggplot2::diamonds$depth[4],3)`}. Note the code for formatting to three significant figures. 
+*  If you want to use a percent sign in the highlighted area you have to escape it like: \hl{The 95\% CI is ...}
+
+
+*   Equations are typed in latex format and have to be surrounded by dollar signs `$`
+
+$s_{\{b_0\}} = \sqrt{MSE[{\dfrac{1}{n}+\dfrac{\bar{X}^2}{\sum{(X_i - \bar{X})^2}}}]}  = `r signif(Q1_sb0,3)`$  
+
+### b) Part B of the question here
+
+## Question 2
+
+
+<!-- # Examples on how to add a plot or a table.  -->
 
 ## **Plot Figures With Centered Captions**
 Figures are captioned by plotting in one chunck and then providing a caption in the following chunk with the option `results="asis"`.
@@ -63,15 +95,22 @@ kable(ggplot2::diamonds[1:10,])
 jpfxns2::adaptiveCenterCaption(chunckName="Draw-Table", caption = "First 10 records in the diamonds table from ggplot2.", capFxn = "TabNum")
 ```
 
+<!-- # Add an copy of the code chunks to the bottom of the file with the chuck headings as comments to help organize it. -->
 
 # Code Appendix
 
 ```{r Export-R-File, include=FALSE}
-knitr::purl("Homework1_JMP.Rmd", documentation = 1)
+RmdName <- knitr::current_input()
+knitr::purl(RmdName, documentation = 1)
+RfileName <- str_sub(RmdName, end = -3)
 ```
 
-```{r Add-RMarkdown-Code-Appendix, code = readLines("Homework1_JMP.R"), echo=TRUE, eval=FALSE}
+```{r Add-RMarkdown-Code-Appendix, code = readLines(RfileName), echo=TRUE, eval=FALSE}
 ```
 
-
+```{r Delete-R-File, include=FALSE}
+if (file.exists(RfileName)) 
+  #Delete file if it exists
+  file.remove(RfileName)
+```
 
