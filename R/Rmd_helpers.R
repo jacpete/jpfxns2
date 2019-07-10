@@ -54,3 +54,74 @@ adaptiveCenterCaption <- function(chunckName, caption = "", capFxn, type = knitr
          print("No type match found. Check output options for .Rmd and jpfxns2::adaptiveCenterCaption().")
   )
 }
+
+
+
+
+#' @title Latex Matrix
+#'
+#' @description Creates a matrix formated for latex with brackets in Rmarkdown.
+#' Needs to be inserted "asis" inside of an existing formula by surrounding the
+#' code chunk in \code{`$$`} signs or having this built into the output of the
+#' code chunk (see Examples).
+#'
+#' @param mat numeric matrix.
+#'
+#' @return Returns the plain text latex code needed to create the formatted
+#' matrix.
+#'
+#' @section Creation notes: First created on 2019-Jul-10 as I was working on
+#' STAT 512 homework.
+#'
+#' @examples
+#' \donttest{
+#'  # Data
+#'```{r}
+#'Q1n <- 6
+#'Q1Y <- matrix(c(1,2,4,3,3,2), ncol = 1)
+#'Q1X0 <- rep(1,Q1n)
+#'Q1X1 <- c(1,1,2,3,2,2)
+#'Q1X2 <- c(2,3,6,3,2,4)
+#'Q1X <- cbind(Q1X0, Q1X1, Q1X2)
+#'```
+#'
+#' ### FIRST OPTION (Better when you need to make multiple matrices in equation)
+#' # Start math formula outside chunck
+#' $$\mathbf{X} =
+#'
+#' # First matrix
+#'```{r echo=FALSE, results='asis'}
+#'cat(adaptiveInlineMatrix(Q1X))
+#'```
+#'*
+#' # Second matrix
+#'```{r echo=FALSE, results='asis'}
+#'cat(adaptiveInlineMatrix(Q1Y))
+#'```
+#'
+#' # End math formula
+#' $$
+#'
+#'
+#' ### SECOND OPTION
+#' # Define it all in one chuck (have to remember to do extra escape characters)
+#'```{r echo=FALSE, results='asis'}
+#'cat(paste0("$\mathbf{X} = ", adaptiveInlineMatrix(Q1X)), "$")
+#'```
+#'}
+#' @export
+adaptiveInlineMatrix <- function(mat) {
+  latexArray <- character()
+  for (r in 1:nrow(mat)) {
+    for (c in 1:ncol(mat)) {
+      if (c != ncol(mat)) {
+        latexArray <- paste0(latexArray, mat[r,c], " & ")
+      } else if (r != nrow(mat)) {
+        latexArray <- paste0(latexArray, mat[r,c], " \\\\ ")
+      } else {
+        latexArray <- paste0(latexArray, mat[r,c], " ")
+      }
+    }
+  }
+  paste0("\\begin{bmatrix} ", latexArray, "\\end{bmatrix}")
+}

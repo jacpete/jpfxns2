@@ -11,7 +11,6 @@
 #'   for my BigDataFNR class presentation on working with spatial data in R in
 #'   my purdueResearch repo.
 #'
-#' @examples
 #' @rdname deg2rad
 #' @export
 
