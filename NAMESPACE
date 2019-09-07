@@ -3,6 +3,7 @@
 export(adaptiveCenterCaption)
 export(adaptiveInlineMatrix)
 export(deg2rad)
+export(numbers2words)
 export(rad2deg)
 export(radiusExtractData)
 export(radiusExtractXY)
