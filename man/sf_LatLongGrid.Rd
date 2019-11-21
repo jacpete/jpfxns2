@@ -4,8 +4,13 @@
 \alias{sf_LatLongGrid}
 \title{Make polygon grid over \code{sf} feature using lat-lon coordinates}
 \usage{
-sf_LatLongGrid(sfLayer, gridSize = 1, prettyGrid = TRUE, epsg = 4269,
-  output = c("polygon", "raster"))
+sf_LatLongGrid(
+  sfLayer,
+  gridSize = 1,
+  prettyGrid = TRUE,
+  epsg = 4269,
+  output = c("polygon", "raster")
+)
 }
 \arguments{
 \item{sfLayer}{sf object}

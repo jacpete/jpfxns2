@@ -2,7 +2,11 @@
 
 export(adaptiveCenterCaption)
 export(adaptiveInlineMatrix)
+export(chat)
 export(deg2rad)
+export(latex_character)
+export(latex_niceSigFig)
+export(modelCoefTable)
 export(numbers2words)
 export(rad2deg)
 export(radiusExtractData)

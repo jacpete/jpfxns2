@@ -125,3 +125,78 @@ adaptiveInlineMatrix <- function(mat) {
   }
   paste0("\\begin{bmatrix} ", latexArray, "\\end{bmatrix}")
 }
+
+
+
+#' @title Force Latex Character Vector in Kable
+#'
+#' @description \code{latex_character()} forces a row to output in kable as a
+#' character. It is helpful when the vector contains a latex special character
+#' like `_`.
+#'
+#' @param vec character vector that you want to force to output as character in
+#' kable.
+#'
+#' @return Returns character vector with special latex formating.
+#'
+#' @section Creation notes: First created on 2019-Nov-14 in Homework_4.Rmd while
+#' working on homework for FNR647.
+#'
+#' @examples
+#' \donttest{
+#'
+#' modelCoefTable(Q1_model, overdispersed = FALSE) %>%
+#'  mutate(Coefficient = latex_character(Coefficient),
+#'         `Pr(>|z|)`= latex_niceSigFig(`Pr(>|z|)`,digits = 3)) %>%
+#'  kable(escape = F, booktabs = T, digits = 3)
+#'}
+#' @export
+latex_character <- function(vec) {
+  paste0("\\verb!",vec,"!")
+}
+
+
+
+
+
+
+#' @title Force Pretty Latex Significant Figure in Kable
+#'
+#' @description \code{latex_niceSigFig()} formats character vector in data to
+#' output as pretty sig fig
+#'
+#' @param vec vector that you want to force to output as sig fig in kable.
+#'
+#' @param digits integer that defines how many sig figs you wnat to keep.
+#'
+#' @return Returns character vector with special latex formating.
+#'
+#' @section Creation notes: First created on 2019-Nov-14 in Homework_4.Rmd while
+#' working on homework for FNR647.
+#'
+#' @examples
+#' \donttest{
+#'
+#' modelCoefTable(Q1_model, overdispersed = FALSE) %>%
+#'  mutate(Coefficient = latex_character(Coefficient),
+#'         `Pr(>|z|)`= latex_niceSigFig(`Pr(>|z|)`,digits = 3)) %>%
+#'  kable(escape = F, booktabs = T, digits = 3)
+#'}
+#' @export
+latex_niceSigFig <- function(vec, digits = 3) {
+  chr <- as.character(vec)
+  if (any(stringr::str_detect(chr, "e"))) {
+    baseNum <- stringr::str_sub(chr, 1,(1+digits))
+    expNum <- stringr::str_extract(chr,'(?<=e)[:graph:]+$')
+    out <- paste0("$",baseNum,"\\text{x}10^{",expNum,"}$")
+  } else {
+    start <- stringr::str_locate(chr, "[^0\\.]")[1]
+    num0 <- start - 3
+    baseNum <- stringr::str_sub(chr, start,(start+digits-1))
+    baseNum <- paste0(stringr::str_sub(baseNum,1,1), ".",
+                      stringr::str_sub(baseNum,2,stringr::str_length(baseNum)))
+    expNum <- paste0("-",num0)
+    out <- paste0("$",baseNum,"\\text{x}10^{",expNum,"}$")
+  }
+  return(out)
+}
