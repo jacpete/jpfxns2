@@ -4,12 +4,8 @@
 \alias{adaptiveCenterCaption}
 \title{Adds a centered caption to a variety of output types in Rmarkdown.}
 \usage{
-adaptiveCenterCaption(
-  chunckName,
-  caption = "",
-  capFxn,
-  type = knitr::opts_knit$get("rmarkdown.pandoc.to")
-)
+adaptiveCenterCaption(chunckName, caption = "", capFxn,
+  type = knitr::opts_knit$get("rmarkdown.pandoc.to"))
 }
 \arguments{
 \item{chunckName}{character string. Rmarkdown code chunk name containing the

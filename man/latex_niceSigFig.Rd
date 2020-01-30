@@ -2,14 +2,17 @@
 % Please edit documentation in R/Rmd_helpers.R
 \name{latex_niceSigFig}
 \alias{latex_niceSigFig}
-\title{Force Pretty Latex Significant Figure in Kable}
+\title{Force Pretty Latex Significant Figure}
 \usage{
-latex_niceSigFig(vec, digits = 3)
+latex_niceSigFig(vec, digits = 3, addMathMode = TRUE)
 }
 \arguments{
 \item{vec}{vector that you want to force to output as sig fig in kable.}
 
 \item{digits}{integer that defines how many sig figs you wnat to keep.}
+
+\item{addMathMode}{logical TRUE if you want to add the \code{$} signs around
+the output string.}
 }
 \value{
 Returns character vector with special latex formating.
@@ -26,9 +29,9 @@ working on homework for FNR647.
 \examples{
 \donttest{
 
-modelCoefTable(Q1_model, overdispersed = FALSE) %>%
+modelCoefTable(Q1_model, overdispersed = FALSE) \%>\%
  mutate(Coefficient = latex_character(Coefficient),
-        `Pr(>|z|)`= latex_niceSigFig(`Pr(>|z|)`,digits = 3)) %>%
+        `Pr(>|z|)`= latex_niceSigFig(`Pr(>|z|)`,digits = 3)) \%>\%
  kable(escape = F, booktabs = T, digits = 3)
 }
 }

@@ -160,7 +160,7 @@ latex_character <- function(vec) {
 
 
 
-#' @title Force Pretty Latex Significant Figure in Kable
+#' @title Force Pretty Latex Significant Figure
 #'
 #' @description \code{latex_niceSigFig()} formats character vector in data to
 #' output as pretty sig fig
@@ -168,6 +168,9 @@ latex_character <- function(vec) {
 #' @param vec vector that you want to force to output as sig fig in kable.
 #'
 #' @param digits integer that defines how many sig figs you wnat to keep.
+#'
+#' @param addMathMode logical TRUE if you want to add the \code{$} signs around
+#' the output string.
 #'
 #' @return Returns character vector with special latex formating.
 #'
@@ -183,12 +186,16 @@ latex_character <- function(vec) {
 #'  kable(escape = F, booktabs = T, digits = 3)
 #'}
 #' @export
-latex_niceSigFig <- function(vec, digits = 3) {
+latex_niceSigFig <- function(vec, digits = 3, addMathMode = TRUE) {
   chr <- as.character(vec)
   if (any(stringr::str_detect(chr, "e"))) {
     baseNum <- stringr::str_sub(chr, 1,(1+digits))
     expNum <- stringr::str_extract(chr,'(?<=e)[:graph:]+$')
-    out <- paste0("$",baseNum,"\\text{x}10^{",expNum,"}$")
+    if (addMathMode) {
+      out <- paste0("$",baseNum,"\\text{x}10^{",expNum,"}$")
+    } else {
+      out <- paste0(baseNum,"\\text{x}10^{",expNum,"}")
+    }
   } else {
     start <- stringr::str_locate(chr, "[^0\\.]")[1]
     num0 <- start - 3
@@ -196,7 +203,11 @@ latex_niceSigFig <- function(vec, digits = 3) {
     baseNum <- paste0(stringr::str_sub(baseNum,1,1), ".",
                       stringr::str_sub(baseNum,2,stringr::str_length(baseNum)))
     expNum <- paste0("-",num0)
-    out <- paste0("$",baseNum,"\\text{x}10^{",expNum,"}$")
+    if (addMathMode) {
+      out <- paste0("$",baseNum,"\\text{x}10^{",expNum,"}$")
+    } else {
+      out <- paste0(baseNum,"\\text{x}10^{",expNum,"}")
+    }
   }
   return(out)
 }

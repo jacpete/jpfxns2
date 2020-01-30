@@ -26,9 +26,9 @@ working on homework for FNR647.
 \examples{
 \donttest{
 
-modelCoefTable(Q1_model, overdispersed = FALSE) %>%
+modelCoefTable(Q1_model, overdispersed = FALSE) \%>\%
  mutate(Coefficient = latex_character(Coefficient),
-        `Pr(>|z|)`= latex_niceSigFig(`Pr(>|z|)`,digits = 3)) %>%
+        `Pr(>|z|)`= latex_niceSigFig(`Pr(>|z|)`,digits = 3)) \%>\%
  kable(escape = F, booktabs = T, digits = 3)
 }
 }
