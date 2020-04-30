@@ -26,7 +26,7 @@ chat <- function(object, output=TRUE) {
   c.hat[2] <- pchisq(sum(pr^2),object$df.residual, lower=FALSE)
   if (output) {
     cat("overdispersion ratio, chat, is ", c.hat[1], "\n")
-    cat("p-value for null that chat = 1 is ", c.hat[2], "\n")
+    cat("p-value for null that chat <= 1 is ", c.hat[2], "\n")
   }
   return(c.hat)
 }

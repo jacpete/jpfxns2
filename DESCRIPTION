@@ -13,4 +13,4 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/jacpete/jpfxns2
 Issues: https://github.com/jacpete/jpfxns2/issues
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.0

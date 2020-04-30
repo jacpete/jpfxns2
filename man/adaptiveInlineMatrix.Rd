@@ -38,7 +38,7 @@ Q1X <- cbind(Q1X0, Q1X1, Q1X2)
 
 ### FIRST OPTION (Better when you need to make multiple matrices in equation)
 # Start math formula outside chunck
-$$\\mathbf{X} =
+$$\mathbf{X} =
 
 # First matrix
 ```{r echo=FALSE, results='asis'}
@@ -57,7 +57,7 @@ $$
 ### SECOND OPTION
 # Define it all in one chuck (have to remember to do extra escape characters)
 ```{r echo=FALSE, results='asis'}
-cat(paste0("$\\mathbf{X} = ", adaptiveInlineMatrix(Q1X)), "$")
+cat(paste0("$\mathbf{X} = ", adaptiveInlineMatrix(Q1X)), "$")
 ```
 }
 }
